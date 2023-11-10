@@ -34,7 +34,7 @@ const logger = require("firebase-functions/logger");
 const axios = require("axios");
 
 
-exports.onDocumentWritten = onDocumentWritten("fun-test/{id}", (event) => {
+exports.onDocumentWritten = onDocumentWritten("esp/{id}", (event) => {
   // logger.i
   const url = process.env.ML_ENDPOINT + "/" + event.data.after.id;
   console.log(url);
@@ -42,7 +42,7 @@ exports.onDocumentWritten = onDocumentWritten("fun-test/{id}", (event) => {
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
-    }
+    },
   })
       .then((response) => {
         console.log(response.data);
@@ -50,7 +50,6 @@ exports.onDocumentWritten = onDocumentWritten("fun-test/{id}", (event) => {
       .catch((err) => {
         logger.info(err, {structuredData: true});
       });
-
   logger.info("Document written", {structuredData: true});
   logger.info(event, {structuredData: true});
 },
