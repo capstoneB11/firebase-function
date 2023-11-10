@@ -36,15 +36,16 @@ const axios = require("axios");
 
 exports.onDocumentWritten = onDocumentWritten("fun-test/{id}", (event) => {
   // logger.i
-
-  axios.get(process.env.ML_ENDPOINT, {
+  const url = process.env.ML_ENDPOINT + "/" + event.data.after.id;
+  console.log(url);
+  axios.get(url, {
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
-    },
+    }
   })
       .then((response) => {
-        console.log(response.data.message);
+        console.log(response.data);
       })
       .catch((err) => {
         logger.info(err, {structuredData: true});
